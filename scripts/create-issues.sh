@@ -65,12 +65,12 @@ echo "== 创建阶段标签 =="
 "$GH" label create "P4-后端" --repo "$REPO" --color "e11d48" --description "第 9–12 周 · Node / NestJS / 数据层" --force
 "$GH" label create "P5-交付" --repo "$REPO" --color "6f42c1" --description "第 13–16 周 · 全栈打通 / 测试 / 部署" --force
 
-# ---------- Issue（倒序创建，让第 1 周排在最上面） ----------
+# ---------- Issue（顺序创建，使「第 N 周」正好是 Issue #N） ----------
 echo
 echo "== 创建 16 个周任务 Issue =="
 ok=0
 fail=0
-for i in 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1; do
+for i in $(seq 1 16); do
   n=$(printf "%02d" "$i")
   if url=$("$GH" issue create \
         --repo "$REPO" \
