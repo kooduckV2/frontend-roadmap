@@ -89,34 +89,43 @@ Java 栈里，前端调后端要靠 Swagger 文档 + 手动对字段，字段改
 ## 2. 第 0 天：环境一次配好
 
 ```bash
+# 只装两样，别的等用到再说
 nvm install 20 && nvm use 20
 npm i -g pnpm
-
-# 全局 CLI
-pnpm add -g @nestjs/cli
-
-# 建 monorepo
-mkdir vue-ticket && cd vue-ticket
-pnpm init
 ```
+
+**第 0 天检查项**
+
+| 项 | 通过标准 |
+|---|---|
+| Node | `node -v` → v20.x |
+| pnpm | `pnpm -v` → 9.x |
+| Git | `git --version` 正常，且已配 `user.name` / `user.email` |
+| 编辑器 | VS Code + Volar，**禁用 Vetur** |
+| 能起项目 | `pnpm create vue@latest` 选 TS，`pnpm dev` 能打开页面 |
+
+**第 0 天不做的事**：Docker、PostgreSQL、Redis、NestJS CLI。
+
+这些第一次真正用到是第 10–12 周。现在装只会让你在镜像下载、端口占用、权限报错上先耗掉半天，而且完全无法理解自己在装什么。
 
 **固定选型，16 周不换：**
 
-| 层 | 选择 | 备注 |
+| 层 | 选择 | 什么时候装 |
 |---|---|---|
-| 运行时 | Node 20 LTS | 别用奇数版本 |
-| 包管理 | pnpm + workspace | monorepo 基础 |
-| 前端 | Vue 3 + Vite + TS strict | 组合式 API + `<script setup>` |
-| 前端状态/路由/UI | Pinia / Vue Router 4 / Element Plus | |
-| 后端 | **NestJS 10+**（默认 Express 适配器） | 需要性能再换 Fastify adapter |
-| ORM | **Prisma** | schema-first，类型生成最省心 |
-| 数据库 | PostgreSQL（Docker 起） | 别用 SQLite，会掩盖类型问题 |
-| 缓存 | Redis（Docker 起） | 第 12 周用 |
-| 校验 | class-validator + class-transformer | Nest 生态原生 |
-| 测试 | 前端 Vitest / 后端 Jest + supertest | |
-| 容器 | Docker + docker-compose | |
+| 运行时 | Node 20 LTS | 第 0 天（别用奇数版本） |
+| 包管理 | pnpm + workspace | 第 0 天 |
+| 编辑器 | VS Code + Volar | 第 0 天 |
+| 前端 | Vue 3 + Vite + TS strict | 第 5 周（组合式 API + `<script setup>`） |
+| 前端状态/路由/UI | Pinia / Vue Router 4 / Element Plus | 第 7 周 |
+| 后端 | **NestJS 10+**（默认 Express 适配器） | 第 10 周（`pnpm dlx @nestjs/cli new`，不用全局装） |
+| ORM | **Prisma** | 第 12 周 |
+| 数据库 | PostgreSQL | 第 12 周（用 Docker；别用 SQLite，会掩盖类型问题） |
+| 缓存 | Redis | 第 12 周 |
+| 容器 | Docker + docker-compose | **第 11 周末**（写第 12 周之前） |
+| 校验 | class-validator + class-transformer | 第 10 周 |
+| 测试 | 前端 Vitest / 后端 Jest + supertest | 第 14 周 |
 
-**第 0 天验收**：`docker compose up -d` 能起 PG 和 Redis，`pnpm -r build` 全绿。
+**第 0 天验收**：`pnpm create vue@latest` 起一个空项目，`pnpm dev` 能打开页面，`pnpm exec tsc --noEmit` 零报错。
 
 ---
 
