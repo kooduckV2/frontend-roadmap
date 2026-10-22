@@ -20,3 +20,9 @@ coverage/
 *.log
 npm-debug.log*
 pnpm-debug.log*
+
+# 本地 GitHub token（勿提交）
+.github-token
+
+# 本地下载的工具（gh 二进制等）
+.tools/
