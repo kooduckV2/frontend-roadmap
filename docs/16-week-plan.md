@@ -101,7 +101,7 @@ npm i -g pnpm
 | Node | `node -v` → v20.x |
 | pnpm | `pnpm -v` → 9.x |
 | Git | `git --version` 正常，且已配 `user.name` / `user.email` |
-| 编辑器 | VS Code + Volar，**禁用 Vetur** |
+| 编辑器 | WebStorm（内置 Vue.js 插件），包管理器设为 pnpm |
 | 能起项目 | `pnpm create vue@latest` 选 TS，`pnpm dev` 能打开页面 |
 
 **第 0 天不做的事**：Docker、PostgreSQL、Redis、NestJS CLI。
@@ -114,7 +114,7 @@ npm i -g pnpm
 |---|---|---|
 | 运行时 | Node 20 LTS | 第 0 天（别用奇数版本） |
 | 包管理 | pnpm + workspace | 第 0 天 |
-| 编辑器 | VS Code + Volar | 第 0 天 |
+| 编辑器 | WebStorm（Vue.js 插件 + pnpm 包管理器） | 第 0 天 |
 | 前端 | Vue 3 + Vite + TS strict | 第 5 周（组合式 API + `<script setup>`） |
 | 前端状态/路由/UI | Pinia / Vue Router 4 / Element Plus | 第 7 周 |
 | 后端 | **NestJS 10+**（默认 Express 适配器） | 第 10 周（`pnpm dlx @nestjs/cli new`，不用全局装） |
@@ -126,6 +126,21 @@ npm i -g pnpm
 | 测试 | 前端 Vitest / 后端 Jest + supertest | 第 14 周 |
 
 **第 0 天验收**：`pnpm create vue@latest` 起一个空项目，`pnpm dev` 能打开页面，`pnpm exec tsc --noEmit` 零报错。
+
+### WebStorm 配置要点
+
+不需要装 Volar / Vetur —— 那是 VS Code 生态的东西，WebStorm 自带 Vue 支持。
+
+| 设置项 | 位置 | 怎么设 |
+|---|---|---|
+| 包管理器 | Settings → Node.js | 选 **pnpm**，否则新项目会生成 `package-lock.json` |
+| TypeScript | Settings → TypeScript | 选项目里的 `node_modules/typescript`，别用内置版本 |
+| Vue 支持 | Settings → Plugins | 确认内置 `Vue.js` 插件已启用 |
+| ESLint | Settings → JavaScript → Code Quality Tools → ESLint | 选 Automatic；不生效就手动指向 `eslint.config.js` |
+| Prettier | Settings → JavaScript → Prettier | 自动检测 + 勾「保存时运行」 |
+
+> `.idea/` 已经在 `.gitignore` 里，不会误提交。
+> ESLint 用的是 flat config（`eslint.config.js`），如果 IDE 完全不认，多半是 WebStorm 版本偏旧，升级后再试。
 
 ---
 
