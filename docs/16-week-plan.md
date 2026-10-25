@@ -90,7 +90,12 @@ Java 栈里，前端调后端要靠 Swagger 文档 + 手动对字段，字段改
 
 ```bash
 # 只装两样，别的等用到再说
-nvm install 20 && nvm use 20
+# Node 24 LTS：用 Homebrew 装，不走 nvm（机器上已有 24 就跳过这两行）
+brew install node@24
+echo 'export PATH="/opt/homebrew/opt/node@24/bin:$PATH"' >> ~/.zshrc
+exec zsh                    # 或直接重开终端
+node -v                     # 应输出 v24.x
+
 npm i -g pnpm
 ```
 
@@ -98,7 +103,7 @@ npm i -g pnpm
 
 | 项 | 通过标准 |
 |---|---|
-| Node | `node -v` → v20.x |
+| Node | `node -v` → v24.x |
 | pnpm | `pnpm -v` → 9.x |
 | Git | `git --version` 正常，且已配 `user.name` / `user.email` |
 | 编辑器 | WebStorm（内置 Vue.js 插件），包管理器设为 pnpm |
@@ -112,7 +117,7 @@ npm i -g pnpm
 
 | 层 | 选择 | 什么时候装 |
 |---|---|---|
-| 运行时 | Node 20 LTS | 第 0 天（别用奇数版本） |
+| 运行时 | Node 24 LTS | 第 0 天（别用奇数版本） |
 | 包管理 | pnpm + workspace | 第 0 天 |
 | 编辑器 | WebStorm（Vue.js 插件 + pnpm 包管理器） | 第 0 天 |
 | 前端 | Vue 3 + Vite + TS strict | 第 5 周（组合式 API + `<script setup>`） |
