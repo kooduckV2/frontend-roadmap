@@ -1,6 +1,6 @@
 # 前端路线图 · 全栈 TypeScript
 
-从 Java Web 转向「大前端」的学习路线 —— **前后端全部用 TypeScript 写**。
+从 Java Web 转向「全栈 TypeScript + 数据平台控制台」的学习路线 —— **前后端全部用 TypeScript 写**，领域是调度（Airflow）与数据平台（Databricks 形态）。
 
 > 详细执行版（16 周逐周任务、验收清单、自测题、避坑指南）见 **[docs/16-week-plan.md](docs/16-week-plan.md)**
 
@@ -30,8 +30,9 @@ Java 的存量经验可以平移，不需要从零开始：
 ```
 前端    Vue 3 + TypeScript + Vite + Pinia + Element Plus
 共享    packages/shared（DTO / 枚举 / 校验）
-后端    NestJS + TypeScript + Prisma
-数据    PostgreSQL + Redis
+后端    NestJS + TypeScript + Prisma        ← BFF / 控制面，不存业务数据
+数据    PostgreSQL（复用 Airflow 实例）       ← 只存标注与运行快照
+领域    Airflow REST API · k8s API（只读）
 工程    pnpm workspace + Docker + GitHub Actions
 ```
 
@@ -42,17 +43,17 @@ Java 的存量经验可以平移，不需要从零开始：
 | 周次 | 阶段 | 产出 |
 |:---:|---|---|
 | 1–2 | JS 语言地基 | 手写 Promise / 防抖节流 / 深拷贝 |
-| 3 | CSS 布局 | 纯 CSS 复刻后台页 |
-| 4–5 | TypeScript + Vue 起步 | 全 TS 改造 + todo-list |
+| 3 | CSS 布局 | 纯 CSS 复刻作业台三栏页 |
+| 4–5 | TypeScript + Vue 起步 | 全 TS 改造 + 运行列表（mock） |
 | 6–7 | 组件化 / 路由 / 状态 / 权限 | 5 个通用组件 + 登录鉴权 |
 | 8 | Vue 响应式原理 | 手写 mini-reactive + 20 个单测 |
-| 9 | Node.js 运行时 | 原生 HTTP 服务 + Stream 管道 |
-| 10–11 | NestJS 基础与鉴权 | 模块 / 守卫 / 拦截器 / JWT + RBAC |
-| 12 | 数据库与 ORM | Prisma schema + 迁移 + 事务 + 缓存 |
-| 13 | **全栈打通 + 类型共享** | 端到端可跑，改字段前后端同时报错 |
-| 14 | 测试 | service 单测 + e2e |
-| 15 | 工程化与部署 | CI 全绿 + Docker Compose 一键起 |
-| 16 | 性能与收尾 | Lighthouse ≥ 90，P95 < 200ms |
+| 9 | Node.js 运行时 | Airflow 代理 + 日志流式转发 |
+| 10–11 | NestJS 基础与鉴权 | 模块 / 守卫 / 拦截器 / JWT + RBAC，token 不上前端 |
+| 12 | 数据库与 ORM | Prisma schema + 迁移 + 事务 + 运行快照 |
+| 13 | **全栈打通 + 类型共享** | 端到端可跑，改字段前后端同时报错，能重跑 |
+| 14 | 测试 | service 单测 + e2e（含上游故障场景） |
+| 15 | 工程化与部署 | CI 全绿 + Compose 一键起，总内存 < 400M |
+| 16 | 性能与收尾 | Lighthouse ≥ 90，P95 < 200ms，v2 观测 |
 
 ---
 
@@ -100,4 +101,4 @@ Java 的存量经验可以平移，不需要从零开始：
 3. 周末对照验收清单逐条打勾，过了才进下一周
 4. 每周在 README 勾掉一行进度，打一个 git tag
 
-**贯穿项目**：全栈 TS 的「设备工单系统」（Vue3 + NestJS + Prisma），单独立仓，不放在这里。
+**贯穿项目**：给家里那套 Airflow 做的「**作业台**」（Vue3 + NestJS + Prisma + Airflow REST API）——运行列表、运行详情、日志、参数化重跑。控制面 / 数据面分离，单独立仓，不放在这里。
